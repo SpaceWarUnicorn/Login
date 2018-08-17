@@ -1,4 +1,15 @@
-PDP Web Front
-=============
+# Auth with Google
 
-Created with `create-react-app`.
+## Introduction
+
+> LogIn, LogOut, and routing using google services
+
+## Code Samples
+
+
+
+## Installation
+
+> Needed modules from create-react-app
+> Needed react-router-dom
+> Needed reactstrap
