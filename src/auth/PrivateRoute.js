@@ -3,13 +3,13 @@ import {
     Route,
     Redirect,
   } from "react-router-dom";
-import fakeAuth from "./fakeAuth";
+import Auth from "./Auth";
 
 export default ({ component: Component, ...rest }) => (
     <Route
       {...rest}
       render={props =>
-        fakeAuth.isAuthenticated === true ? (
+        Auth.isAuthenticated === true ? (
           <Component {...props} />
         ) : (
           <Redirect
@@ -22,4 +22,3 @@ export default ({ component: Component, ...rest }) => (
       }
     />
   );
-  

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { Container, Button } from "reactstrap";
 import getGapi from "./getGapi";
-import fakeAuth from "../auth/fakeAuth";
+import Auth from "../auth/Auth";
 import "./style.css";
 
 class Login extends Component {
@@ -11,7 +11,6 @@ class Login extends Component {
   };
 
   gapiSetup(gapi) {
-    console.log("gapi in gapiSetup for login", gapi);
     const updateSigninStatus = this.updateSigninStatus.bind(this);
     const clientConfig = {
       clientId: "78234197602-vbeqsvaqnujugs56k6u72v7l5t078v0f.apps.googleusercontent.com",
@@ -28,9 +27,10 @@ class Login extends Component {
     this.setState({ gapi, gapiReady: true });
   }
 
-auth(){
-  fakeAuth.authenticate(() => this.setState({ redirectToReferrer: true }))
-}
+  doAuth(){
+    Auth.authenticate(() => {this.setState({ redirectToReferrer: true }); console.log('workeo')})
+    console.log('workeo')
+  }
 
   doGLogin() {
     const { gapi } = this.state;
@@ -41,8 +41,9 @@ auth(){
 
   updateSigninStatus(updSt) {
     console.log("Status update", updSt);
-    const auth = this.auth.bind(this)
+    const auth = this.doAuth.bind(this)
     if(updSt){
+      console.log("Status update", updSt);
       auth();
     }
 }
@@ -56,6 +57,7 @@ auth(){
 
     const { from } = this.props.location.state || { from: { pathname: "/" } };
     const { redirectToReferrer } = this.state;
+
     if (redirectToReferrer === true) {
 
       return <Redirect to={from} />;
@@ -65,6 +67,7 @@ auth(){
       <div id="login">
         <Container>
           <h2 className="text-center">Login</h2>
+
           <Button onClick={this.doGLogin.bind(this)}>G Login</Button>
 
         </Container>
