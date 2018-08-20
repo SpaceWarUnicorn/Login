@@ -10,28 +10,35 @@ class Logout extends Component {
   componentDidMount(){
     getGapi(window, document).then(this.gapiSetup.bind(this));
   }
-
+  
   gapiSetup(gapi) {
-    // const updateSigninStatus = this.updateSigninStatus.bind(this);
+    const updateSigninStatus = this.updateSigninStatus.bind(this);
     const clientConfig = {
       clientId: "78234197602-vbeqsvaqnujugs56k6u72v7l5t078v0f.apps.googleusercontent.com",
       scope: "profile"
     }
     gapi.client
       .init(clientConfig)
-      // .then(() => {
-      //   gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-      //   // Handle the initial sign-in state.
-      //   updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-      //
-      // });
+      .then(() => {
+        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+        // Handle the initial sign-in state.
+        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+
+      });
     this.setState({ gapi, gapiReady: true });
   }
 
+  doAuth(){
+    Auth.authenticate(() => this.setState({ redirectToReferrer: true }))
+  }
 
-  // updateSigninStatus(updSt) {
-  //   console.log(updSt);
-  // }
+  updateSigninStatus(updSt) {
+    const auth = this.doAuth.bind(this)
+    if(updSt){
+      auth();
+    }
+  }
+
 
 
   doGLogout() {
