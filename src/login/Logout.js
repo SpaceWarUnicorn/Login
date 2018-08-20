@@ -28,9 +28,6 @@ class Logout extends Component {
     this.setState({ gapi, gapiReady: true });
   }
 
-  doAuth(){
-    Auth.authenticate(() => this.setState({ redirectToReferrer: true }))
-  }
 
   // updateSigninStatus(updSt) {
   //   console.log(updSt);
