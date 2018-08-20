@@ -45,8 +45,7 @@ class Login extends Component {
     }
 }
 
-  constructor(props) {
-    super(props);
+  componentDidMount(){
     getGapi(window, document).then(this.gapiSetup.bind(this));
   }
 
