@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { Container, Button } from "reactstrap";
+
 import getGapi from "./getGapi";
 import Auth from "../auth/Auth";
 import "./style.css";
@@ -28,22 +29,18 @@ class Login extends Component {
   }
 
   doAuth(){
-    Auth.authenticate(() => {this.setState({ redirectToReferrer: true }); console.log('workeo')})
-    console.log('workeo')
+    Auth.authenticate(() => this.setState({ redirectToReferrer: true }));
   }
 
   doGLogin() {
     const { gapi } = this.state;
     gapi.auth2.getAuthInstance().signIn();
-
   }
 
 
   updateSigninStatus(updSt) {
-    console.log("Status update", updSt);
     const auth = this.doAuth.bind(this)
     if(updSt){
-      console.log("Status update", updSt);
       auth();
     }
 }
@@ -65,12 +62,20 @@ class Login extends Component {
 
     return (
       <div id="login">
-        <Container>
-          <h2 className="text-center">Login</h2>
 
-          <Button onClick={this.doGLogin.bind(this)}>G Login</Button>
 
-        </Container>
+      {
+        !Auth.isAuthenticated ?
+        (  <div>
+            <Container>
+              <h2 className="text-center">Login</h2>
+              <Button onClick={this.doGLogin.bind(this)}>G Login</Button>
+            </Container>
+          </div>
+         )
+       :
+       (<div></div>)
+    }
       </div>
     );
   }

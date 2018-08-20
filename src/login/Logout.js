@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import { Button } from "reactstrap";
-import { Redirect } from "react-router-dom";
+import {withRouter} from "react-router-dom";
 
-import Auth from "./Auth";
-import getGapi from "../login/getGapi";
+import Auth from "../auth/Auth";
+import getGapi from "./getGapi";
 
 class Logout extends Component {
 
@@ -29,26 +29,22 @@ class Logout extends Component {
   }
 
   doAuth(){
-    Auth.authenticate(() => {this.setState({ redirectToReferrer: true }); console.log('workeo')})
-    console.log('workeo')
+    Auth.authenticate(() => this.setState({ redirectToReferrer: true }))
   }
 
   updateSigninStatus(updSt) {
-    console.log("Status update", updSt);
     const auth = this.doAuth.bind(this)
     if(updSt){
-      console.log("Status update", updSt);
       auth();
     }
-}
+  }
 
 
 
   doGLogout() {
     const { gapi } = this.state;
     gapi.auth2.getAuthInstance().signOut()
-      .then(gapi.auth2.getAuthInstance().disconnect()
-        .then(console.log('disconnected')));
+      .then(gapi.auth2.getAuthInstance().disconnect());
 
       Auth.signout(() => this.props.history.push("/"))
   }
@@ -68,6 +64,7 @@ class Logout extends Component {
        : (
          <div>
           <p>You are not logged in.</p>
+
          </div>
        )
      }
@@ -76,4 +73,6 @@ class Logout extends Component {
   }
 }
 
-export default Logout;
+const LogOut = withRouter(Logout);
+
+export default LogOut;

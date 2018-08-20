@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import {withRouter} from "react-router-dom";
+
 
 import "./App.css";
 
@@ -9,7 +9,8 @@ import About from "./about";
 import Login from "./login";
 
 import PrivateRoute from "./auth/PrivateRoute";
-import AuthButton from "./auth/AuthButton";
+
+import LogOut from "./login/Logout";
 
 const mainMenu = className => (
   <ul className={className}>
@@ -25,7 +26,7 @@ const mainMenu = className => (
   </ul>
 );
 
-const LogOut = withRouter(AuthButton)
+
 
 class App extends Component {
 
