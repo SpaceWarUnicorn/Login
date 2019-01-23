@@ -14,7 +14,7 @@ class Login extends Component {
   gapiSetup(gapi) {
     const updateSigninStatus = this.updateSigninStatus.bind(this);
     const clientConfig = {
-      clientId: "78234197602-vbeqsvaqnujugs56k6u72v7l5t078v0f.apps.googleusercontent.com",
+      clientId: "{your google clientID}",
       scope: "profile"
     }
     gapi.client
